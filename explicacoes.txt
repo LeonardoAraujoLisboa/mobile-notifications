@@ -1,0 +1,44 @@
+ANDROID
+Para configurar precisa configurar o firebase cloud messaging
+Lá no firebase.google vc cria um novo projeto e desativa uma opção la 
+Vai na engrenagem e configurações do projeto e cloud messaging -> no segundo 3 pontinhos e aperta em Gerenciar API no Console do Google Cloud
+Depois voce deve Criar projeto no One Signal para enviar notificações e faz o setup das configurações nele e cola a chave q tem no firebase nele e id tbm. Veja o app.json e olhe o que eu fiz na última linha
+
+Para enviar mensagem, voce volta para o dashboard do one Signal e vai em push message e ai vai fazendo as coisas. E ai quando voce envia na propria plataforma mesmo, ele ja chega no dispositivo.
+
+Para enviar usando o email tem q ir em send to a particular group vai em subscribe users e dps em email e coloca o email la q vc colocou no código
+
+Criando canais de notificação vc vai em settings -> messaging e la no fim coloca android notifications e cria o grupo e vai fazendo as coisas. Voce coloca a prioridade dela, se for high ele aparece na tela ja, nao precisa descer para mostrar as notificações e varias outras coisas
+
+Quando voce clica na notificação ele ja abre o app
+
+Até aqui o foco das mensagens foi quando o dispositivo está fechado (quit) ou aberto mas em segundo plano (background)
+
+---------------------------------- Dispositivo Foreground (aberto e visível) -----------------------------
+Tem varias coisas no aplicativo, la no onesignal voce pode colocar botoes de ações na notificação tbm
+
+Adicionando o deep linking eu coloquei ""scheme": "igniteshoesapp"," no app.json embaixo do slug e depois rodei o expo prebuild. E ai pra saber se tem o de fato o nosso scheme configurado na aplicação eu rodo o npx uri-scheme list -> O que gerar é o q vai ajudar a compor o deep linking
+
+Para abrir a aplicação usando o deep linkin voce coloca npx uri-scheme open igniteshoesapp://(ip da máquina):(porta que ele roda) --android
+
+Quando voce for fazer enviar a notificação com deep linking, la no lauch url voce coloca igniteshoesapp://(ip da máquina):(porta que ele roda), pq ai ele vai rodar a sua aplicação quando estiver fechada ou ja vai abrir direto quase esteja em segundo plano
+
+(Para fazer o teste das notificações tem q ser no android studio)
+
+-------------------------------------Conceito do carrinho abandonado-----------------------------------------
+Carrinho abandonado é quando o usuário adiciona um produto ao carrinho e ai por algum motivo ele nao finaliza a compra, mas tbm nao esvazia o carrinho. Ai a intenção é que eu envie uma notificação para o usuário lembrando ele que ele possue compras no carrinho, para que ele finalize a compra. 
+
+Para fazer isso eu posso criar tags para serem chamadas quando o usuário fizer algo no carrinho. E ai eu crio colocando a tag q eu criei aqui mesmo vendo se existe e se é maior que um
+
+
+Expo Prebuild
+quando voce roda o comando expo prebuild pela primeira vez no projeto, e se o projeto é um Manager workflow (quando é tudo automatizado, voce baixa as coisas (apis, plugins...) com o expo o expo faz toda a configuração), entao o projeto sera convertido para bare workflow (que é quando voce tem acesso ao código (criando os diretorios ios e android) e faz tudo manualmente). O Manager workflow é o melhor por motivos obveis.
+Se rodar o expo prebuild pela segunda vez vai para o development builds, configurações automaticas com expo plugins e custom development clients
+
+
+Voce tem q fazer fora do expo, ou seja, todo o teste da aplicação para notificações tem q ser com o android studio, ai dps q vc rodar no android dando expo run:android, voce vai no one Signal e aperta no check subscribe users e tem q mostrar uma msg em verde dizendo q tem algo conectado ao id q vc passou no app.tsx. E ai mostrando essa msg vc vai no send a menssage e tem la varias opções
+
+
+
+IOS
+É pago entao so vou acompanhar e é isso hehehe
